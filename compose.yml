@@ -8,4 +8,5 @@ services:
     init: true
     volumes:
       - ./:/usr/src/app # ローカルをコンテナ内にマウント
+      - ./.codex/:/home/node/.codex
     command: sleep infinity
