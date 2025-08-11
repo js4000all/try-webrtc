@@ -9,6 +9,7 @@ RUN set -x \
     less \
     curl \
     jq \
+    ca-certificates \
     python3 \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/* \
