@@ -5,6 +5,7 @@ services:
       dockerfile: Dockerfile
     ports:
       - "1455:1455"
+    init: true
     volumes:
       - ./:/usr/src/app # ローカルをコンテナ内にマウント
     command: sleep infinity
