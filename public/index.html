@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>WebRTC P2P Chat (手動シグナリング)</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <header>
+      <h1>WebRTC P2P Chat</h1>
+      <p class="subtitle">手動シグナリングで試せる最小構成</p>
+    </header>
+
+    <section class="role">
+      <div class="role-select">
+        <label><input type="radio" name="role" value="offerer" checked /> オファー側</label>
+        <label><input type="radio" name="role" value="answerer" /> アンサー側</label>
+      </div>
+      <div class="role-help" id="role-help"></div>
+    </section>
+
+    <section class="signals">
+      <div class="panel" id="offerer-panel">
+        <h2>オファー側</h2>
+        <ol>
+          <li>「オファーを生成」し、表示された自分のSDPを相手へ渡してください。</li>
+          <li>相手から受け取ったアンサーSDPを貼り付け、「アンサーを適用」。</li>
+        </ol>
+        <div class="actions">
+          <button id="btn-create-offer">オファーを生成</button>
+        </div>
+        <label>自分のSDP</label>
+        <textarea id="local-sdp-offerer" readonly placeholder="ここに自分のSDPが表示されます"></textarea>
+        <div class="row">
+          <button data-copy="local-sdp-offerer">コピー</button>
+        </div>
+        <label>相手のSDPを貼り付け</label>
+        <textarea id="remote-sdp-offerer" placeholder="相手のアンサーSDPを貼り付け"></textarea>
+        <div class="row">
+          <button id="btn-apply-answer">アンサーを適用</button>
+        </div>
+      </div>
+
+      <div class="panel" id="answerer-panel">
+        <h2>アンサー側</h2>
+        <ol>
+          <li>相手から受け取ったオファーSDPを貼り付け、「オファー適用＆アンサー生成」。</li>
+          <li>表示された自分のSDPを相手へ渡してください。</li>
+        </ol>
+        <label>相手のSDPを貼り付け</label>
+        <textarea id="remote-sdp-answerer" placeholder="相手のオファーSDPを貼り付け"></textarea>
+        <div class="row">
+          <button id="btn-apply-offer-generate-answer">オファー適用＆アンサー生成</button>
+        </div>
+        <label>自分のSDP</label>
+        <textarea id="local-sdp-answerer" readonly placeholder="ここに自分のSDPが表示されます"></textarea>
+        <div class="row">
+          <button data-copy="local-sdp-answerer">コピー</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="status">
+      <div class="status-line">役割: <span id="status-role">offerer</span></div>
+      <div class="status-line">接続状態: <span id="status-conn">-</span></div>
+      <div class="status-line">データチャネル: <span id="status-dc">-</span></div>
+      <div class="row">
+        <button id="btn-reset" class="secondary">リセット</button>
+      </div>
+    </section>
+
+    <section class="chat">
+      <h2>チャット</h2>
+      <div id="chat-log" class="chat-log" aria-live="polite"></div>
+      <div class="chat-input">
+        <input id="chat-text" type="text" placeholder="メッセージを入力してEnter" disabled />
+        <button id="btn-send" disabled>送信</button>
+      </div>
+    </section>
+
+    <footer>
+      <small>注意: STUNはGoogleの公開サーバーを使用。NAT環境では接続できない場合があります。</small>
+    </footer>
+
+    <script src="./app.js"></script>
+  </body>
+  </html>
+
